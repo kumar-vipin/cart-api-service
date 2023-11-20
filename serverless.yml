@@ -1,0 +1,23 @@
+service: cart-api-service
+
+frameworkVersion: "3"
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: us-east-1
+
+plugins:
+  - serverless-dotenv-plugin
+
+functions:
+  main:
+    handler: dist/main.handler
+    memorySize: 128
+    events:
+      - http:
+          method: ANY
+          path: /{proxy+}
