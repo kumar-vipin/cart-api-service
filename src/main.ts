@@ -8,10 +8,10 @@ let cachedServer: Handler;
 
 async function bootstrap(): Promise<Handler> {
   const nestApp = await NestFactory.create(AppModule);
+  nestApp.use(helmet());
   nestApp.enableCors({
     origin: (req, callback) => callback(null, true),
   });
-  nestApp.use(helmet());
   await nestApp.init();
   const expressApp = nestApp.getHttpAdapter().getInstance();
   return serverlessExpress({ app: expressApp });
@@ -27,3 +27,30 @@ const handler: Handler = async (
 };
 
 export { handler };
+
+/*
+* import { NestFactory } from '@nestjs/core';
+import Helmet from 'helmet';
+import { AppModule } from './app.module';
+
+import dotenv from 'dotenv';
+import path from 'path';
+const paths =path.resolve(__dirname, '../.env');
+dotenv.config({ path: paths});
+
+const port = process.env.PORT || 4000;
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.use(Helmet());
+  app.enableCors({
+    origin: (req, callback) => callback(null, true),
+  });
+
+  await app.listen(port);
+}
+
+bootstrap().then(() => {
+  console.log('App is running on %s port', port);
+});
+*/
