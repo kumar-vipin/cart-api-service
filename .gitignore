@@ -13,6 +13,20 @@ lerna-debug.log*
 # OS
 .DS_Store
 
+# serverless
+.serverless
+
+# environment
+.env
+
+# serverless
+.serverless
+.env
+
+# serverless
+.serverless
+.env
+
 # Tests
 /coverage
 /.nyc_output
